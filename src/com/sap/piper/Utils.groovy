@@ -9,7 +9,7 @@ import java.security.MessageDigest
 
 
 def stash(name, include = '**/*.*', exclude = '', useDefaultExcludes = true) {
-    echo "Stash content: ${name} (include: ${include}, exclude: ${exclude}, useDefaultExcludes: ${useDefaultExcludes})"
+    echo "OS-CUSTOM Stash content: ${name} (include: ${include}, exclude: ${exclude}, useDefaultExcludes: ${useDefaultExcludes})"
 
     Map stashParams = [
         name    : name,
@@ -34,11 +34,11 @@ def stashList(script, List stashes) {
             String lockName = "${lockingResourceGroup}/${stash.name}"
             lock(lockName) {
                 unstash stash.name
-                echo "Stash content: ${name} (include: ${include}, exclude: ${exclude})"
+                echo "OS-CUSTOM Stash content: ${name} (include: ${include}, exclude: ${exclude})"
                 steps.stash name: name, includes: include, excludes: exclude, allowEmpty: true
             }
         } else {
-            echo "Stash content: ${name} (include: ${include}, exclude: ${exclude})"
+            echo "OS-CUSTOM Stash content: ${name} (include: ${include}, exclude: ${exclude})"
             steps.stash name: name, includes: include, excludes: exclude, allowEmpty: true
         }
     }
@@ -77,11 +77,11 @@ boolean isInsidePod(Script script) {
     return script.env.POD_NAME
 }
 
-def unstash(name, msg = "Unstash failed:") {
+def unstash(name, msg = "OS-CUSTOM Unstash failed:") {
 
     def unstashedContent = []
     try {
-        echo "Unstash content: ${name}"
+        echo "OS-CUSTOM Unstash content: ${name}"
         steps.unstash name
         unstashedContent += name
     } catch (e) {
