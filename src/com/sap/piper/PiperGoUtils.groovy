@@ -20,6 +20,11 @@ class PiperGoUtils implements Serializable {
     }
 
     void unstashPiperBin() {
+        // Check if the sap-piper binary is already there
+        if (steps.sh(script: "[ -x ./piper ]", returnStatus: true) == 0) {
+            steps.echo "piper binary already exists"
+            return
+        }
 
         if (utils.unstash('piper-bin').size() > 0) return
 
