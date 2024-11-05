@@ -98,6 +98,13 @@ spec:
           - STAGES
           - PARAMETERS
         default: requirements.txt
+      - name: basePath
+        type: string
+        description: path to the base directory for the python build.  ie. the directory in which the setup.py file resides.
+        scope:
+          - STEPS
+          - STAGES
+          - PARAMETERS
   outputs:
     resources:
       - name: commonPipelineEnvironment

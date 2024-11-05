@@ -53,6 +53,14 @@ func pythonBuild(config pythonBuildOptions, telemetryData *telemetry.CustomData,
 
 func runPythonBuild(config *pythonBuildOptions, telemetryData *telemetry.CustomData, utils pythonBuildUtils, commonPipelineEnvironment *pythonBuildCommonPipelineEnvironment) error {
 
+	if len(config.BasePath) > 0 {
+		log.Entry().Info("Setting base path for python build:")
+		err := utils.RunExecutable("cd", config.BasePath)
+		if err != nil {
+			return err
+		}
+	}
+
 	pipInstallFlags := []string{"install", "--upgrade"}
 	virutalEnvironmentPathMap := make(map[string]string)
 
